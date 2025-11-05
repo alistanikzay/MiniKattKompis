@@ -12,7 +12,6 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        // Enkel in-memory cache
         return new ConcurrentMapCacheManager("weather");
     }
 }
