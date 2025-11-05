@@ -14,13 +14,24 @@ public class Cat {
     private int age;
     private @Nullable String favoriteToy;
 
-    public Cat() {}
+
+    protected Cat() {}
+
+
+    public Cat(Long id, @NonNull String name, int age, @Nullable String favoriteToy) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.favoriteToy = favoriteToy;
+    }
+
 
     public Cat(@NonNull String name, int age, @Nullable String favoriteToy) {
         this.name = name;
         this.age = age;
         this.favoriteToy = favoriteToy;
     }
+
 
     public Long getId() { return id; }
     public @NonNull String getName() { return name; }
