@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>😺 Alla Katter - KattKompis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff3e6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 30px;
+            background-color: #ff6f61;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: 700;
+            padding: 8px 18px;
+            border: 2px solid #ff6f61;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        nav a:hover {
+            background-color: #ff6f61;
+            color: white;
+            transform: translateY(-2px);
+        }
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            list-style: none;
+            padding: 0 20px 50px 20px;
+        }
+        li {
+            background: #fff3e6;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+        }
+        li img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+        li span {
+            display: block;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #ff6f61;
+        }
+        li p {
+            margin: 5px 0 15px 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>😺 Alla Katter</h1>
+</header>
+<nav>
+    <a href="index.html">🏠 Hem</a>
+    <a href="add-cat.html">➕ Lägg till katt</a>
+    <a href="weather.html">☀️ Väder</a>
+</nav>
+
+<ul id="catList"></ul>
+
+<script>
+    // Förinstallerade katter
+    const initialCats = [
+        {name: "Whiskers", personality: "Lekfull, busig 😻", imageUrl: "https://placekitten.com/300/200"},
+        {name: "Mittens", personality: "Lugn, snäll 😸", imageUrl: "https://placekitten.com/301/200"},
+        {name: "Luna", personality: "Nyfiken, lekfull 😽", imageUrl: "https://placekitten.com/302/200"}
+    ];
+
+    // Hämta sparade katter från localStorage
+    const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
+
+    // Kombinera initiala och sparade katter
+    const allCats = [...initialCats, ...savedCats];
+
+    const list = document.getElementById("catList");
+
+    function displayCats() {
+        list.innerHTML = "";
+        allCats.forEach(cat => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <img src="${cat.imageUrl}" alt="${cat.name}">
+                <span>${cat.name} 🐾</span>
+                <p>${cat.personality}</p>
+            `;
+            list.appendChild(li);
+        });
+    }
+
+    displayCats();
+</script>
+</body>
+</html>

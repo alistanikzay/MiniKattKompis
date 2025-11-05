@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>🐾 Kattdetaljer - KattKompis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #fff3e6; margin: 0; padding: 0; }
+        header { text-align: center; padding: 30px; background-color: #ff6f61; color: white; }
+        header h1 { margin: 0; font-size: 2.5rem; }
+        nav { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+        nav a { text-decoration: none; color: #ff6f61; font-weight: 700; padding: 8px 18px; border: 2px solid #ff6f61; border-radius: 12px; transition: all 0.3s; background-color: white; }
+        nav a:hover { background-color: #ff6f61; color: white; transform: translateY(-2px); }
+        .cat-container { max-width: 600px; margin: 30px auto; background: #fff3e6; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden; text-align: center; }
+        .cat-container img { width: 100%; height: 300px; object-fit: cover; }
+        .cat-details { padding: 20px; }
+        .cat-details h2 { font-size: 2rem; color: #ff6f61; margin-bottom: 10px; }
+        .cat-details p { font-size: 1rem; margin: 5px 0; color: #333; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🐾 Kattdetaljer</h1>
+</header>
+<nav>
+    <a href="index.html">🏠 Hem</a>
+    <a href="cats.html">😺 Alla katter</a>
+    <a href="add-cat.html">➕ Lägg till katt</a>
+</nav>
+<div class="cat-container">
+    <img src="https://placekitten.com/400/300" alt="Whiskers">
+    <div class="cat-details">
+        <h2>Whiskers 🐾</h2>
+        <p>Ålder: 3 år</p>
+        <p>Personlighet: Lekfull, busig 😻</p>
+        <p>Favoritleksak: Kattleksak 🧶</p>
+    </div>
+</div>
+</body>
+</html>

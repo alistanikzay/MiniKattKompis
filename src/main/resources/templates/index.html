@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>🐾 KattKompis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #ff6f61;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: 700;
+            padding: 10px 20px;
+            border: 2px solid #ff6f61;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        nav a:hover {
+            background-color: #ff6f61;
+            color: white;
+            transform: translateY(-3px);
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+        .mySlides {
+            display: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .mySlides img {
+            width: 100%;
+            display: block;
+        }
+        .cat-details {
+            background-color: #fff3e6;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .cat-details p {
+            margin: 5px 0;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: #ff6f61;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            user-select: none;
+            transition: background 0.3s;
+            background-color: rgba(255,255,255,0.7);
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(255,111,97,0.9);
+            color: white;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🐱 KattKompis 🐾</h1>
+</header>
+
+<nav>
+    <a href="cats.html">😺 Alla katter</a>
+    <a href="add-cat.html">➕ Lägg till katt</a>
+    <a href="weather.html">☀️ Väder</a>
+</nav>
+
+<div class="slideshow-container">
+    <div class="mySlides">
+        <img src="https://placekitten.com/900/400" alt="Katt 1">
+        <div class="cat-details">
+            <p>Whiskers, 3 år 🐾</p>
+            <p>Personlighet: Lekfull och busig 😻</p>
+        </div>
+    </div>
+
+    <div class="mySlides">
+        <img src="https://placekitten.com/901/400" alt="Katt 2">
+        <div class="cat-details">
+            <p>Mittens, 5 år 🐾</p>
+            <p>Personlighet: Snäll och lugn 😸</p>
+        </div>
+    </div>
+
+    <div class="mySlides">
+        <img src="https://placekitten.com/902/400" alt="Katt 3">
+        <div class="cat-details">
+            <p>Luna, 2 år 🐾</p>
+            <p>Personlighet: Nyfiken och lekfull 😽</p>
+        </div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+</div>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let i;
+        const slides = document.getElementsByClassName("mySlides");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+    }
+</script>
+
+</body>
+</html>

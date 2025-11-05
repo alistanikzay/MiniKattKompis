@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>➕ Lägg till katt - KattKompis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 30px;
+            background-color: #ff6f61;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: 700;
+            padding: 8px 18px;
+            border: 2px solid #ff6f61;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        nav a:hover {
+            background-color: #ff6f61;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .form-container {
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff3e6;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ff6f61;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #ff5040;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #ff6f61;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>➕ Lägg till ny katt 😺</h1>
+</header>
+<nav>
+    <a href="index.html">🏠 Hem</a>
+    <a href="cats.html">😸 Alla katter</a>
+    <a href="weather.html">☀️ Väder</a>
+</nav>
+
+<div class="form-container">
+    <h2>Fyll i kattens information</h2>
+    <form id="catForm">
+        <div class="form-group">
+            <label for="name">Namn:</label>
+            <input type="text" id="name" name="name" placeholder="Ex. Whiskers" required>
+        </div>
+        <div class="form-group">
+            <label for="personality">Personlighet:</label>
+            <input type="text" id="personality" name="personlighet" placeholder="Ex. Lekfull, busig" required>
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">Bild-URL:</label>
+            <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/cat.jpg" required>
+        </div>
+        <button type="submit">Lägg till katt 🐾</button>
+    </form>
+    <a href="cats.html" class="back-link">← Tillbaka till kattlistan</a>
+</div>
+
+<script>
+    const form = document.getElementById("catForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const personality = document.getElementById("personality").value;
+        const imageUrl = document.getElementById("imageUrl").value;
+
+        const newCat = { name, personality, imageUrl };
+
+        // Hämta tidigare sparade katter
+        const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
+
+        // Lägg till nya katten
+        savedCats.push(newCat);
+
+        // Spara tillbaka
+        localStorage.setItem("cats", JSON.stringify(savedCats));
+
+        alert("Katt tillagd! 😺");
+
+        // Rensa formuläret
+        form.reset();
+    });
+</script>
+</body>
+</html>

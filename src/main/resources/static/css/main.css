@@ -1,0 +1,152 @@
+/* Globala inställningar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body */
+body {
+    background-color: #fdf6f0;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Rubrik */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ff6f61;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 2px #ffc6b3;
+}
+
+/* Lista med katter */
+ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 0;
+}
+
+/* Enskild katt */
+li {
+    background-color: #fff3e6;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover-effekt */
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+/* Kattbild */
+li img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Kattnamn */
+li span:first-of-type {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+    color: #ff6f61;
+}
+
+/* Personlighet */
+li span:last-of-type {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Responsiv */
+@media (max-width: 600px) {
+    ul {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    li img {
+        height: 120px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff3e6;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #ff5040;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #ff6f61;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
