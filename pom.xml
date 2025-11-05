@@ -11,30 +11,31 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.example</groupId>
+    <groupId>org.example</groupId>
     <artifactId>minikattkompis</artifactId>
     <version>1.0.0</version>
     <name>MiniKattKompis</name>
-    <description>MiniKattKompis – ett mindre projekt med API versioning, JSpecify och RestTestClient</description>
 
     <properties>
         <java.version>23</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- Web -->
+        <!-- 🌐 Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Thymeleaf -->
+        <!-- 🧠 Thymeleaf for HTML views -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- JPA + H2 -->
+        <!-- 🗃️ JPA + H2 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -45,13 +46,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Redis -->
+        <!-- ⚡ Redis Cache -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- Security + OAuth2 -->
+        <!-- 🔒 Security + OAuth2 Login -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -61,21 +62,35 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
 
-        <!-- JSpecify -->
+        <!-- 🧩 JSpecify for null safety -->
         <dependency>
             <groupId>org.jspecify</groupId>
             <artifactId>jspecify</artifactId>
             <version>1.0.0</version>
         </dependency>
 
-        <!-- Test -->
+        <!-- 🧪 Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- RestTestClient (ny i Spring Boot 4.0.0-RC1) -->
+        <!-- ✅ JUnit Jupiter 6 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>6.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 🧪 RestTestClient (ny i Spring Boot 4 / Spring 7) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-resttestclient</artifactId>
