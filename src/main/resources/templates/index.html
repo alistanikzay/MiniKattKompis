@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>🐾 KattKompis</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -13,62 +12,125 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             text-align: center;
             padding: 30px 0;
             background-color: #ff6f61;
             color: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
+
         header h1 {
             margin: 0;
             font-size: 3rem;
         }
+
         nav {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin: 20px 0;
+            gap: 20px;
+            padding: 12px;
+            background: white;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            border-bottom: 1px solid #eee;
         }
+
         nav a {
             text-decoration: none;
             color: #ff6f61;
             font-weight: 700;
             padding: 10px 20px;
-            border: 2px solid #ff6f61;
             border-radius: 12px;
             transition: all 0.3s;
             background-color: white;
+            border: 2px solid #ff6f61;
         }
+
         nav a:hover {
             background-color: #ff6f61;
             color: white;
             transform: translateY(-3px);
         }
+
+        /* Ny modern välkomstsektion */
+        .welcome {
+            text-align: center;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, #fffdf9, #fff1ec);
+            max-width: 1000px;
+            margin: 50px auto 20px;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .welcome h2 {
+            color: #ff6f61;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .welcome p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        .welcome p span {
+            color: #ff6f61;
+            font-weight: 600;
+        }
+
+        /* Justerad slideshow */
         .slideshow-container {
             position: relative;
-            max-width: 900px;
-            margin: 30px auto;
+            max-width: 950px;
+            margin: 50px auto;
         }
+
         .mySlides {
             display: none;
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+            animation: fade 1s;
         }
+
+        @keyframes fade {
+            from {opacity: 0.4}
+            to {opacity: 1}
+        }
+
         .mySlides img {
             width: 100%;
+            height: 440px;
+            object-fit: cover;
             display: block;
+            transition: transform 0.5s ease;
         }
+
+        .mySlides img:hover {
+            transform: scale(1.03);
+        }
+
         .cat-details {
             background-color: #fff3e6;
             padding: 15px;
             text-align: center;
             font-size: 1rem;
         }
+
         .cat-details p {
             margin: 5px 0;
         }
+
         .prev, .next {
             cursor: pointer;
             position: absolute;
@@ -84,12 +146,51 @@
             transition: background 0.3s;
             background-color: rgba(255,255,255,0.7);
         }
+
         .prev:hover, .next:hover {
             background-color: rgba(255,111,97,0.9);
             color: white;
         }
+
         .prev { left: 10px; }
         .next { right: 10px; }
+
+        .dots {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 14px;
+            width: 14px;
+            margin: 0 5px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .active, .dot:hover {
+            background-color: #ff6f61;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .welcome {
+                padding: 40px 20px;
+                margin: 30px 10px;
+            }
+            .mySlides img {
+                height: 300px;
+            }
+            .prev, .next {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -104,9 +205,19 @@
     <a href="weather.html">☀️ Väder</a>
 </nav>
 
+<section class="welcome">
+    <h2>Välkommen till <span>KattKompis</span>! 🐾</h2>
+    <p>
+        Här möts kattälskare från hela världen. Utforska charmiga kattprofiler, lägg till dina egna favoriter
+        och upptäck hur vädret påverkar våra lurviga vänners humör.
+        <br><br>
+        KattKompis är platsen där <span>nyfikenhet</span> och <span>gemenskap</span> möts – allt med ett mjukt jam!
+    </p>
+</section>
+
 <div class="slideshow-container">
     <div class="mySlides">
-        <img src="https://placekitten.com/900/400" alt="Katt 1">
+        <img src="https://placekitten.com/950/440" alt="Katt 1">
         <div class="cat-details">
             <p>Whiskers, 3 år 🐾</p>
             <p>Personlighet: Lekfull och busig 😻</p>
@@ -114,7 +225,7 @@
     </div>
 
     <div class="mySlides">
-        <img src="https://placekitten.com/901/400" alt="Katt 2">
+        <img src="https://placekitten.com/951/440" alt="Katt 2">
         <div class="cat-details">
             <p>Mittens, 5 år 🐾</p>
             <p>Personlighet: Snäll och lugn 😸</p>
@@ -122,7 +233,7 @@
     </div>
 
     <div class="mySlides">
-        <img src="https://placekitten.com/902/400" alt="Katt 3">
+        <img src="https://placekitten.com/952/440" alt="Katt 3">
         <div class="cat-details">
             <p>Luna, 2 år 🐾</p>
             <p>Personlighet: Nyfiken och lekfull 😽</p>
@@ -133,23 +244,40 @@
     <a class="next" onclick="plusSlides(1)">❯</a>
 </div>
 
+<div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
 <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    let slideIndex = 0;
+    showSlides();
 
     function plusSlides(n) {
-        showSlides(slideIndex += n);
+        slideIndex += n - 1;
+        showSlides();
     }
 
-    function showSlides(n) {
-        let i;
+    function currentSlide(n) {
+        slideIndex = n - 1;
+        showSlides();
+    }
+
+    function showSlides() {
         const slides = document.getElementsByClassName("mySlides");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) {
+        const dots = document.getElementsByClassName("dot");
+        for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
         slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        setTimeout(showSlides, 5000);
     }
 </script>
 
