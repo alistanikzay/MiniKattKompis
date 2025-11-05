@@ -14,10 +14,8 @@ public class CatMapper {
 
     public Cat toEntity(CatDTO dto) {
         if (dto == null) return null;
-        Cat cat = new Cat();
-        cat.setName(dto.getName());
-        cat.setAge(dto.getAge());
-        cat.setFavoriteToy(dto.getFavoriteToy());
+
+        Cat cat = new Cat(dto.getName(), dto.getAge(), dto.getFavoriteToy());
         return cat;
     }
 }
