@@ -16,13 +16,15 @@ public class CatRestController {
         this.catService = catService;
     }
 
-    @RequestMapping(value = "/all", version = "2")
-    public List<Cat> getAllCats() {
+
+    @GetMapping(value = "/all", headers = "Version=2")
+    public List<Cat> getAllCatsV2() {
         return catService.getAllCats();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, version = "2")
-    public Cat addCat(@RequestBody Cat cat) {
+
+    @PostMapping(value = "/add", headers = "Version=2")
+    public Cat addCatV2(@RequestBody Cat cat) {
         return catService.addCat(cat);
     }
 }
