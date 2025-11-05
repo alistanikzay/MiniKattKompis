@@ -4,38 +4,44 @@
     <meta charset="UTF-8">
     <title>😺 Alla Katter - KattKompis</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff3e6;
+            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
             margin: 0;
             padding: 0;
+            color: #333;
         }
         header {
             text-align: center;
-            padding: 30px;
-            background-color: #ff6f61;
+            padding: 25px;
+            background: #ff6f61;
             color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
+        header h1 { margin: 0; font-size: 2rem; }
         nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 15px;
+            padding: 12px;
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+            border-bottom: 1px solid #eee;
         }
         nav a {
             text-decoration: none;
             color: #ff6f61;
             font-weight: 700;
-            padding: 8px 18px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
             border: 2px solid #ff6f61;
-            border-radius: 12px;
-            transition: all 0.3s;
             background-color: white;
         }
         nav a:hover {
@@ -43,84 +49,123 @@
             color: white;
             transform: translateY(-2px);
         }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .search-box { text-align: center; margin-bottom: 25px; }
+        .search-box input {
+            width: 100%; max-width: 400px; padding: 12px;
+            border-radius: 12px; border: 1px solid #ccc; font-size: 1rem;
+        }
         ul {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            list-style: none;
-            padding: 0 20px 50px 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px; list-style: none; padding: 0; margin: 0;
         }
         li {
-            background: #fff3e6;
-            border-radius: 15px;
-            text-align: center;
+            background: white; border-radius: 15px; text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden; display: flex; flex-direction: column;
+            justify-content: space-between; padding-bottom: 15px;
         }
-        li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-        }
-        li img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 12px 12px 0 0;
-        }
+        li:hover { transform: translateY(-5px); box-shadow: 0 10px 18px rgba(0,0,0,0.2); }
+        li img { width: 100%; height: 180px; object-fit: cover; }
         li span {
-            display: block;
-            padding: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #ff6f61;
+            display: block; padding: 10px; font-weight: bold;
+            font-size: 1.2rem; color: #ff6f61;
         }
-        li p {
-            margin: 5px 0 15px 0;
-            font-size: 0.95rem;
-            color: #666;
+        li p { margin: 0 0 10px 0; font-size: 0.95rem; color: #666; padding: 0 10px; }
+        .details-btn, .edit-btn, .delete-btn {
+            margin: 5px 10px; padding: 8px 12px; border: none;
+            border-radius: 8px; font-weight: 700; cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none; display: inline-block;
         }
+        .details-btn { background: #ff6f61; color: white; }
+        .details-btn:hover { background: #ff5040; transform: scale(1.05); }
+        .edit-btn { background: #ffd966; color: #333; }
+        .edit-btn:hover { background: #ffcc33; transform: scale(1.05); }
+        .delete-btn { background: #ff4d4d; color: white; }
+        .delete-btn:hover { background: #e60000; transform: scale(1.05); }
     </style>
 </head>
 <body>
 <header>
     <h1>😺 Alla Katter</h1>
 </header>
+
 <nav>
     <a href="index.html">🏠 Hem</a>
     <a href="add-cat.html">➕ Lägg till katt</a>
     <a href="weather.html">☀️ Väder</a>
 </nav>
 
-<ul id="catList"></ul>
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Sök efter katt...">
+    </div>
+    <ul id="catList"></ul>
+</div>
 
 <script>
-    // Förinstallerade katter
     const initialCats = [
         {name: "Whiskers", personality: "Lekfull, busig 😻", imageUrl: "https://placekitten.com/300/200"},
         {name: "Mittens", personality: "Lugn, snäll 😸", imageUrl: "https://placekitten.com/301/200"},
         {name: "Luna", personality: "Nyfiken, lekfull 😽", imageUrl: "https://placekitten.com/302/200"}
     ];
+    let savedCats = JSON.parse(localStorage.getItem("cats")) || [];
 
-    // Hämta sparade katter från localStorage
-    const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
-
-    // Kombinera initiala och sparade katter
-    const allCats = [...initialCats, ...savedCats];
+    function getAllCats() { return [...initialCats, ...savedCats]; }
 
     const list = document.getElementById("catList");
+    const searchInput = document.getElementById("searchInput");
 
-    function displayCats() {
+    function displayCats(filter = "") {
+        const allCats = getAllCats();
         list.innerHTML = "";
-        allCats.forEach(cat => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <img src="${cat.imageUrl}" alt="${cat.name}">
-                <span>${cat.name} 🐾</span>
-                <p>${cat.personality}</p>
-            `;
-            list.appendChild(li);
-        });
+
+        allCats
+            .filter(cat =>
+                cat.name.toLowerCase().includes(filter.toLowerCase()) ||
+                cat.personality.toLowerCase().includes(filter.toLowerCase())
+            )
+            .forEach((cat, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+          <img src="${cat.imageUrl || 'https://placekitten.com/400/300'}" alt="${cat.name}">
+          <span>${cat.name} 🐾</span>
+          <p>${cat.personality}</p>
+          <a href="cat-detail.html?index=${index}" class="details-btn">Visa detaljer</a>
+        `;
+
+                if (index >= initialCats.length) {
+                    // Redigera-knapp som länk till edit-cat.html
+                    const editBtn = document.createElement("a");
+                    editBtn.textContent = "✏️ Redigera";
+                    editBtn.className = "edit-btn";
+                    editBtn.href = `edit-cat.html?index=${index}`;
+
+                    // Ta bort-knapp
+                    const deleteBtn = document.createElement("button");
+                    deleteBtn.textContent = "❌ Ta bort";
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.addEventListener("click", () => {
+                        const savedIndex = index - initialCats.length;
+                        savedCats.splice(savedIndex, 1);
+                        localStorage.setItem("cats", JSON.stringify(savedCats));
+                        displayCats(filter);
+                    });
+
+                    li.appendChild(editBtn);
+                    li.appendChild(deleteBtn);
+                }
+
+                list.appendChild(li);
+            });
     }
+
+    searchInput.addEventListener("input", (e) => {
+        displayCats(e.target.value);
+    });
 
     displayCats();
 </script>
