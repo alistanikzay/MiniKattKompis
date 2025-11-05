@@ -4,38 +4,180 @@
     <meta charset="UTF-8">
     <title>🐾 Kattdetaljer - KattKompis</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background: #fff3e6; margin: 0; padding: 0; }
-        header { text-align: center; padding: 30px; background-color: #ff6f61; color: white; }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        nav { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
-        nav a { text-decoration: none; color: #ff6f61; font-weight: 700; padding: 8px 18px; border: 2px solid #ff6f61; border-radius: 12px; transition: all 0.3s; background-color: white; }
-        nav a:hover { background-color: #ff6f61; color: white; transform: translateY(-2px); }
-        .cat-container { max-width: 600px; margin: 30px auto; background: #fff3e6; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden; text-align: center; }
-        .cat-container img { width: 100%; height: 300px; object-fit: cover; }
-        .cat-details { padding: 20px; }
-        .cat-details h2 { font-size: 2rem; color: #ff6f61; margin-bottom: 10px; }
-        .cat-details p { font-size: 1rem; margin: 5px 0; color: #333; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px;
+            background: #ff6f61;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a:hover {
+            background-color: #ff6f61;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .cat-container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .cat-container img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .cat-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .cat-details {
+            padding: 25px;
+        }
+
+        .cat-details h2 {
+            font-size: 2rem;
+            color: #ff6f61;
+            margin-bottom: 15px;
+        }
+
+        .cat-details p {
+            font-size: 1.1rem;
+            margin: 8px 0;
+            color: #444;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #ff6f61;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .back-link:hover {
+            background: #ff5040;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .cat-container img {
+                height: 250px;
+            }
+        }
     </style>
 </head>
 <body>
 <header>
     <h1>🐾 Kattdetaljer</h1>
 </header>
+
 <nav>
     <a href="index.html">🏠 Hem</a>
     <a href="cats.html">😺 Alla katter</a>
     <a href="add-cat.html">➕ Lägg till katt</a>
 </nav>
+
 <div class="cat-container">
-    <img src="https://placekitten.com/400/300" alt="Whiskers">
+    <img id="catImage" src="https://placekitten.com/400/300" alt="Katt">
     <div class="cat-details">
-        <h2>Whiskers 🐾</h2>
-        <p>Ålder: 3 år</p>
-        <p>Personlighet: Lekfull, busig 😻</p>
-        <p>Favoritleksak: Kattleksak 🧶</p>
+        <h2 id="catName">Kattnamn 🐾</h2>
+        <p id="catAge">Ålder: Okänd</p>
+        <p id="catPersonality">Personlighet: Okänd</p>
+        <p id="catToy">Favoritleksak: Okänd</p>
+        <a href="cats.html" class="back-link">← Tillbaka till kattlistan</a>
     </div>
 </div>
-</body>
-</html>
+
+<script>
+    const initialCats = [
+        {name: "Whiskers", personality: "Lekfull, busig 😻", imageUrl: "https://placekitten.com/300/200"},
+        {name: "Mittens", personality: "Lugn, snäll 😸", imageUrl: "https://placekitten.com/301/200"},
+        {name: "Luna", personality: "Nyfiken, lekfull 😽", imageUrl: "https://placekitten.com/302/200"}
+    ];
+
+    const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
+    const allCats = [...initialCats, ...savedCats];
+
+    const params = new URLSearchParams(window.location.search);
+    const index = Number(params.get("index"));
+
+    const nameEl = document.getElementById("catName");
+    const personalityEl = document.getElementById("catPersonality");
+    const imageEl = document.getElementById("catImage");
+
+    if (Number.isInteger(index) && allCats[index]) {
+        const cat = allCats[index];
+        nameEl.textContent = `${cat.name} 🐾`;
+        personalityEl.textContent = `Personlighet: ${cat.personality || "Okänd"}`;
+        imageEl.src = cat.imageUrl || "https://placekitten.com/400/300";
+        imageEl.alt = cat.name || "Katt";
+    } else {
+        nameEl.textContent = "Katt saknas 🐾";
+        personalityEl.textContent = "Personlighet: Okänd";
+        imageEl.src = "https://placekitten.com/400/300";
+        imageEl.alt = "Katt saknas";
+    }
+</script>
