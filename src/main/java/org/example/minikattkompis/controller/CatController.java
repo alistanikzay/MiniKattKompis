@@ -28,7 +28,8 @@ public class CatController {
 
     @GetMapping("/cats/add")
     public String addCatForm(Model model) {
-        model.addAttribute("cat", new Cat());
+        // Skapar en tom Cat för formuläret
+        model.addAttribute("cat", new Cat("", 0, null));
         return "add-cat";
     }
 
