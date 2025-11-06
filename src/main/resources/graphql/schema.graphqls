@@ -1,0 +1,10 @@
+type Cat {
+  id: ID
+  name: String
+  age: Int
+  favoriteToy: String
+}
+
+type Query {
+  cats: [Cat]
+}

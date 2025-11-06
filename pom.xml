@@ -62,6 +62,12 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
 
+        <!-- 🔹 GraphQL -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
+        </dependency>
+
         <!-- 🧩 JSpecify for null safety -->
         <dependency>
             <groupId>org.jspecify</groupId>
@@ -81,6 +87,8 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+
 
         <!-- ✅ JUnit Jupiter 6 -->
         <dependency>
