@@ -25,14 +25,13 @@ class WeatherControllerTest {
 
     @Test
     void showWeather_DefaultCity() {
-        Map<String, String> weatherMap = new HashMap<>();
+        Map<String, Object> weatherMap = new HashMap<>();
         weatherMap.put("temperature", "20°C");
         weatherMap.put("condition", "Sunny");
 
         when(weatherService.getWeather("Stockholm")).thenReturn(weatherMap);
 
         Model model = new ConcurrentModel();
-        // SKICKA "Stockholm" eftersom defaultValue endast fungerar i Spring HTTP-request
         String view = weatherController.showWeather("Stockholm", model);
 
         assertThat(view).isEqualTo("weather");
@@ -43,7 +42,7 @@ class WeatherControllerTest {
 
     @Test
     void showWeather_GivenCity() {
-        Map<String, String> weatherMap = new HashMap<>();
+        Map<String, Object> weatherMap = new HashMap<>();
         weatherMap.put("temperature", "15°C");
         weatherMap.put("condition", "Rainy");
 
