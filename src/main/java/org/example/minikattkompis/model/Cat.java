@@ -41,4 +41,17 @@ public class Cat {
     public void setName(@NonNull String name) { this.name = name; }
     public void setAge(int age) { this.age = age; }
     public void setFavoriteToy(@Nullable String favoriteToy) { this.favoriteToy = favoriteToy; }
+
+    // --------------------
+// Veterinärbesök
+// --------------------
+    private java.time.LocalDate nextVetVisit;
+
+    public java.time.LocalDate getNextVetVisit() {
+        return nextVetVisit;
+    }
+
+    public void setNextVetVisit(java.time.LocalDate nextVetVisit) {
+        this.nextVetVisit = nextVetVisit;
+    }
 }
