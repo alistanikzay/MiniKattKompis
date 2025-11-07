@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import java.time.LocalDate;
+
 @Entity
 public class Cat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,10 +17,15 @@ public class Cat {
     private int age;
     private @Nullable String favoriteToy;
 
+    // --------------------
+    // Veterinärbesök
+    // --------------------
+    private @Nullable LocalDate nextVetVisit;
 
+    // JPA kräver en no-args konstruktor
     protected Cat() {}
 
-
+    // Full konstruktor
     public Cat(Long id, @NonNull String name, int age, @Nullable String favoriteToy) {
         this.id = id;
         this.name = name;
@@ -25,33 +33,27 @@ public class Cat {
         this.favoriteToy = favoriteToy;
     }
 
-
+    // Konstruktor utan id (för nya objekt)
     public Cat(@NonNull String name, int age, @Nullable String favoriteToy) {
         this.name = name;
         this.age = age;
         this.favoriteToy = favoriteToy;
     }
 
-
+    // --------------------
+    // Getters
+    // --------------------
     public Long getId() { return id; }
     public @NonNull String getName() { return name; }
     public int getAge() { return age; }
     public @Nullable String getFavoriteToy() { return favoriteToy; }
+    public @Nullable LocalDate getNextVetVisit() { return nextVetVisit; }
 
+    // --------------------
+    // Setters
+    // --------------------
     public void setName(@NonNull String name) { this.name = name; }
     public void setAge(int age) { this.age = age; }
     public void setFavoriteToy(@Nullable String favoriteToy) { this.favoriteToy = favoriteToy; }
-
-    // --------------------
-// Veterinärbesök
-// --------------------
-    private java.time.LocalDate nextVetVisit;
-
-    public java.time.LocalDate getNextVetVisit() {
-        return nextVetVisit;
-    }
-
-    public void setNextVetVisit(java.time.LocalDate nextVetVisit) {
-        this.nextVetVisit = nextVetVisit;
-    }
+    public void setNextVetVisit(@Nullable LocalDate nextVetVisit) { this.nextVetVisit = nextVetVisit; }
 }
