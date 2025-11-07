@@ -3,6 +3,8 @@ package org.example.minikattkompis.service;
 import org.example.minikattkompis.model.Cat;
 import org.example.minikattkompis.model.Reminder;
 import org.example.minikattkompis.repository.CatRepository;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class CatService {
     private final CatRepository repo;
     private final CatNameService nameService;
 
-    public CatService(CatRepository repo, CatNameService nameService) {
+    public CatService(@NonNull CatRepository repo, @NonNull CatNameService nameService) {
         this.repo = repo;
         this.nameService = nameService;
     }
@@ -26,7 +28,7 @@ public class CatService {
     // Alla katter
     // --------------------
     @Cacheable("cats")
-    public List<Cat> getAllCats() {
+    public @NonNull List<Cat> getAllCats() {
         System.out.println("Fetching cats from DB...");
         return repo.findAll();
     }
@@ -35,7 +37,7 @@ public class CatService {
     // Lägg till katt
     // --------------------
     @CacheEvict(value = "cats", allEntries = true)
-    public Cat addCat(Cat cat) {
+    public @NonNull Cat addCat(@NonNull Cat cat) {
         cat.setName(nameService.safeCatName(cat.getName()));
         return repo.save(cat);
     }
@@ -44,7 +46,7 @@ public class CatService {
     // Hämta en specifik katt
     // --------------------
     @Cacheable(value = "cats", key = "#id")
-    public Cat getCat(Long id) {
+    public @Nullable Cat getCat(@NonNull Long id) {
         System.out.println("Fetching cat " + id + " from DB...");
         return repo.findById(id).orElse(null);
     }
@@ -53,7 +55,7 @@ public class CatService {
     // Påminnelser om veterinärbesök
     // --------------------
     @Cacheable("upcomingVetVisits")
-    public List<Reminder> getUpcomingVetVisits() {
+    public @NonNull List<Reminder> getUpcomingVetVisits() {
         System.out.println("Fetching upcoming vet visits from DB...");
         return repo.findAll().stream()
                 .filter(c -> c.getNextVetVisit() != null &&
