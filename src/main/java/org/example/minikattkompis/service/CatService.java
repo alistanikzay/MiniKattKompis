@@ -1,6 +1,7 @@
 package org.example.minikattkompis.service;
 
 import org.example.minikattkompis.model.Cat;
+import org.example.minikattkompis.model.Reminder;
 import org.example.minikattkompis.repository.CatRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -52,11 +53,17 @@ public class CatService {
     // Påminnelser om veterinärbesök
     // --------------------
     @Cacheable("upcomingVetVisits")
-    public List<Cat> getUpcomingVetVisits() {
+    public List<Reminder> getUpcomingVetVisits() {
         System.out.println("Fetching upcoming vet visits from DB...");
         return repo.findAll().stream()
                 .filter(c -> c.getNextVetVisit() != null &&
                         c.getNextVetVisit().isBefore(LocalDate.now().plusDays(7)))
+                .map(c -> new Reminder(
+                        c.getId(),
+                        c.getName(),
+                        "Veterinärbesök",
+                        c.getNextVetVisit()
+                ))
                 .collect(Collectors.toList());
     }
 }
