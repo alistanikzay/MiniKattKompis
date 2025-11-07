@@ -58,8 +58,14 @@ public class SecurityConfig {
         return userRequest -> {
             OidcUser oidcUser = delegate.loadUser(userRequest);
 
-            // Skapa en ny uppsättning roller
-            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
+            // Skapa en AuthorityMapper för att konvertera roller
+            SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
+            authorityMapper.setConvertToUpperCase(true);
+
+            // Börja med att mappa befintliga authorities
+            var mappedAuthorities = authorityMapper.mapAuthorities(oidcUser.getAuthorities());
+
+            // --- Lägg till dynamisk roll-mappning ---
             // Alla får ROLE_USER
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -68,6 +74,7 @@ public class SecurityConfig {
                 mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_PREMIUM"));
             }
 
+            // Returnera en ny OidcUser med mappade authorities
             return new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
         };
     }

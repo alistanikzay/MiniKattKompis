@@ -207,6 +207,15 @@
     <a href="weather.html">☀️ Väder</a>
 </nav>
 
+<!-- PREMIUM-länk: visas bara för användare med PREMIUM-roll -->
+<div style="text-align:center; margin:20px 0;"
+     th:if="${#authorization.expression('hasRole(''PREMIUM'')')}">
+    <a href="/premium/recommendations"
+       style="padding:10px 20px; background-color:#ff6f61; color:white; border-radius:12px; text-decoration:none; font-weight:700;">
+        💡 Premium rekommendationer
+    </a>
+</div>
+
 <section class="welcome">
     <h2>Välkommen till <span>KattKompis</span>! 🐾</h2>
     <p>
