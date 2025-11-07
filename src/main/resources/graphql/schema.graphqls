@@ -1,10 +1,26 @@
 type Cat {
-  id: ID
-  name: String
-  age: Int
-  favoriteToy: String
+    id: ID!
+    name: String!
+    age: Int
+    favoriteToy: String
+}
+
+type Recommendation {
+    id: ID!
+    text: String!
+    category: String
+}
+
+type Reminder {
+    id: ID!
+    text: String!
+    date: String
 }
 
 type Query {
-  cats: [Cat]
+    allCats: [Cat]
+    catById(id: ID!): Cat
+    allRecommendations: [Recommendation]
+    premiumRecommendations: [Recommendation]
+    allReminders: [Reminder]
 }
