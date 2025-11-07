@@ -88,7 +88,12 @@
             </exclusions>
         </dependency>
 
-
+        <!-- 🔐 Security test support (för @WithMockUser, MockMvc Security m.m.) -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- ✅ JUnit Jupiter 6 -->
         <dependency>
@@ -103,6 +108,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-resttestclient</artifactId>
             <version>4.0.0-RC1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ Lägg till för TestRestTemplate -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
