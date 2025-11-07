@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: .
+    container_name: minikattkompis-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/minikattkompis
+      SPRING_DATASOURCE_USERNAME: kattuser
+      SPRING_DATASOURCE_PASSWORD: kattpassword
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:8.0
+    container_name: minikattkompis-db
+    environment:
+      MYSQL_DATABASE: minikattkompis
+      MYSQL_USER: kattuser
+      MYSQL_PASSWORD: kattpassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:7.0
+    container_name: minikattkompis-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  db_data:
