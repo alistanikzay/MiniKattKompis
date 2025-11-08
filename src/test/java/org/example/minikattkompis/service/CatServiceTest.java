@@ -15,7 +15,7 @@ class CatServiceTest {
         CatNameService nameService = mock(CatNameService.class);
         CatService service = new CatService(repo, nameService);
 
-        Cat cat = new Cat(null, 2, "Boll");
+        Cat cat = new Cat(null, 3, "Boll");
         when(nameService.safeCatName(null)).thenReturn("Okänd katt");
         when(repo.save(any(Cat.class))).thenAnswer(i -> i.getArgument(0));
 

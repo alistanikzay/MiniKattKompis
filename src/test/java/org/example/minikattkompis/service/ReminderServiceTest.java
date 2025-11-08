@@ -26,10 +26,10 @@ class ReminderServiceTest {
     @Test
     void getUpcomingVetVisits_ShouldReturnRemindersForCatsWithVetVisitWithin7Days() {
         // Arrange
-        Cat cat1 = new Cat("Misse", 3, "Boll");
+        Cat cat1 = new Cat("Whiskers", 3, "Boll");
         cat1.setNextVetVisit(LocalDate.now().plusDays(3));
 
-        Cat cat2 = new Cat("Luna", 4, "Fjäderleksak");
+        Cat cat2 = new Cat("Luna", 2, "Fjäderleksak");
         cat2.setNextVetVisit(LocalDate.now().plusDays(10)); // för långt bort
 
         when(repo.findAll()).thenReturn(List.of(cat1, cat2));
@@ -41,13 +41,13 @@ class ReminderServiceTest {
         assertThat(result)
                 .hasSize(1)
                 .extracting(Reminder::getCatName)
-                .containsExactly("Misse");
+                .containsExactly("Whiskers");
     }
 
     @Test
     void getUpcomingVetVisits_ShouldReturnEmptyListWhenNoVisitsWithin7Days() {
         // Arrange
-        Cat cat = new Cat("Simba", 2, "Laser");
+        Cat cat = new Cat("Mittens", 5, "Solsäng");
         cat.setNextVetVisit(LocalDate.now().plusDays(14));
         when(repo.findAll()).thenReturn(List.of(cat));
 

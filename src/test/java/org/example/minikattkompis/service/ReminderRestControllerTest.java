@@ -33,7 +33,7 @@ class ReminderRestControllerTest {
         // Arrange
         Reminder reminder = new Reminder(
                 1L,
-                "Misse",
+                "Whiskers",
                 "Veterinärbesök",
                 LocalDate.now().plusDays(2)
         );
@@ -44,7 +44,7 @@ class ReminderRestControllerTest {
         // Act & Assert
         mockMvc.perform(get("/api/reminders").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].catName").value("Misse"))
+                .andExpect(jsonPath("$[0].catName").value("Whiskers"))
                 .andExpect(jsonPath("$[0].description").value("Veterinärbesök"))
                 .andExpect(jsonPath("$[0].date").value(reminder.getDate().toString()));
     }

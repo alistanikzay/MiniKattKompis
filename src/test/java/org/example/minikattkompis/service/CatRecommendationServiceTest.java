@@ -21,7 +21,7 @@ class CatRecommendationServiceTest {
     @Test
     void getRecommendations_ShouldReturnInteractiveToyForYoungCat() {
         // Arrange
-        Cat kitten = new Cat("Misse", 1, "Boll");
+        Cat kitten = new Cat("Whiskers", 3, "Boll");
 
         // Act
         List<Recommendation> recommendations = recommendationService.getRecommendations(kitten);
@@ -37,7 +37,7 @@ class CatRecommendationServiceTest {
     @Test
     void getRecommendations_ShouldReturnComfortBedForOlderCat() {
         // Arrange
-        Cat adult = new Cat("Luna", 3, "Fjäderleksak");
+        Cat adult = new Cat("Luna", 2, "Fjäderleksak");
 
         // Act
         List<Recommendation> recommendations = recommendationService.getRecommendations(adult);
@@ -53,7 +53,7 @@ class CatRecommendationServiceTest {
     @Test
     void getRecommendations_ShouldAlwaysIncludeCatnipTreats() {
         // Arrange
-        Cat anyCat = new Cat("Simba", 5, "Laserpekare");
+        Cat anyCat = new Cat("Mittens", 5, "Solsäng");
 
         // Act
         List<Recommendation> recommendations = recommendationService.getRecommendations(anyCat);
