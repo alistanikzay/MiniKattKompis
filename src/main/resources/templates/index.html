@@ -175,22 +175,14 @@
             background-color: #ff6f61;
         }
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            .welcome {
-                padding: 40px 20px;
-                margin: 30px 10px;
-            }
-            .mySlides img {
-                height: 300px;
-            }
-            .prev, .next {
-                font-size: 1.2rem;
-                padding: 12px;
-            }
-        }
+        /* --- Featured cats (cards under slideshow) --- */
+        .featured-cats { max-width: 950px; margin: 30px auto 0; padding: 0 20px; }
+        .featured-cats h2 { text-align: center; color: #ff6f61; margin-bottom: 16px; }
+        .featured-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+        .cat-card { background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,0.08);text-align:center; }
+        .cat-card img { width:100%; height:180px; object-fit:cover; display:block; }
+        .cat-card .card-body { padding:12px; }
+        .details-btn { display:inline-block; margin-top:8px; padding:8px 12px; background:#ff6f61; color:white; border-radius:8px; text-decoration:none; font-weight:700; }
     </style>
 </head>
 <body>
@@ -207,15 +199,6 @@
     <a href="weather.html">☀️ Väder</a>
 </nav>
 
-<!-- PREMIUM-länk: visas bara för användare med PREMIUM-roll -->
-<div style="text-align:center; margin:20px 0;"
-     th:if="${#authorization.expression('hasRole(''PREMIUM'')')}">
-    <a href="/premium/recommendations"
-       style="padding:10px 20px; background-color:#ff6f61; color:white; border-radius:12px; text-decoration:none; font-weight:700;">
-        💡 Premium rekommendationer
-    </a>
-</div>
-
 <section class="welcome">
     <h2>Välkommen till <span>KattKompis</span>! 🐾</h2>
     <p>
@@ -228,7 +211,7 @@
 
 <div class="slideshow-container">
     <div class="mySlides">
-        <img src="https://placekitten.com/950/440" alt="Katt 1">
+        <img src="images/whiskers.jpg" alt="Whiskers">
         <div class="cat-details">
             <p>Whiskers, 3 år 🐾</p>
             <p>Personlighet: Lekfull och busig 😻</p>
@@ -236,7 +219,7 @@
     </div>
 
     <div class="mySlides">
-        <img src="https://placekitten.com/951/440" alt="Katt 2">
+        <img src="images/mittens.jpg" alt="Mittens">
         <div class="cat-details">
             <p>Mittens, 5 år 🐾</p>
             <p>Personlighet: Snäll och lugn 😸</p>
@@ -244,7 +227,7 @@
     </div>
 
     <div class="mySlides">
-        <img src="https://placekitten.com/952/440" alt="Katt 3">
+        <img src="images/luna.jpg" alt="Luna">
         <div class="cat-details">
             <p>Luna, 2 år 🐾</p>
             <p>Personlighet: Nyfiken och lekfull 😽</p>
@@ -255,42 +238,44 @@
     <a class="next" onclick="plusSlides(1)">❯</a>
 </div>
 
+<section class="featured-cats">
+    <h2>Möt några av våra katter</h2>
+    <div class="featured-grid">
+        <article class="cat-card">
+            <img src="images/whiskers.jpg" alt="Whiskers">
+            <div class="card-body">
+                <h3 style="margin:6px 0;color:#ff6f61;">Whiskers, 3 år</h3>
+                <p style="margin:6px 0;color:#666;">Lekfull och busig — älskar bollar och höga hyllor.</p>
+                <a href="cat-detail.html?index=0" class="details-btn">Visa detaljer</a>
+            </div>
+        </article>
+
+        <article class="cat-card">
+            <img src="images/mittens.jpg" alt="Mittens">
+            <div class="card-body">
+                <h3 style="margin:6px 0;color:#ff6f61;">Mittens, 5 år</h3>
+                <p style="margin:6px 0;color:#666;">Lugn och kärvänlig — föredrar mysstunder i solen.</p>
+                <a href="cat-detail.html?index=1" class="details-btn">Visa detaljer</a>
+            </div>
+        </article>
+
+        <article class="cat-card">
+            <img src="images/luna.jpg" alt="Luna">
+            <div class="card-body">
+                <h3 style="margin:6px 0;color:#ff6f61;">Luna, 2 år</h3>
+                <p style="margin:6px 0;color:#666;">Nyfiken och äventyrlig — älskar nya leksaker och fönsterutsikt.</p>
+                <a href="cat-detail.html?index=2" class="details-btn">Visa detaljer</a>
+            </div>
+        </article>
+    </div>
+</section>
+
 <div class="dots">
     <span class="dot" onclick="currentSlide(1)"></span>
     <span class="dot" onclick="currentSlide(2)"></span>
     <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 
-<script>
-    let slideIndex = 0;
-    showSlides();
-
-    function plusSlides(n) {
-        slideIndex += n - 1;
-        showSlides();
-    }
-
-    function currentSlide(n) {
-        slideIndex = n - 1;
-        showSlides();
-    }
-
-    function showSlides() {
-        const slides = document.getElementsByClassName("mySlides");
-        const dots = document.getElementsByClassName("dot");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
-        setTimeout(showSlides, 5000);
-    }
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
