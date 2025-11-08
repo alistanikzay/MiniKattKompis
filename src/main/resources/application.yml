@@ -7,9 +7,21 @@ spring:
             client-id: <DIN_GOOGLE_CLIENT_ID>
             client-secret: <DIN_GOOGLE_CLIENT_SECRET>
             scope: profile,email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+          facebook:
+            client-id: <DIN_FACEBOOK_CLIENT_ID>
+            client-secret: <DIN_FACEBOOK_CLIENT_SECRET>
+            scope: public_profile,email
+            redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
+            client-name: Facebook
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
             token-uri: https://www.googleapis.com/oauth2/v4/token
             user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
             user-name-attribute: sub
+          facebook:
+            authorization-uri: https://www.facebook.com/dialog/oauth
+            token-uri: https://graph.facebook.com/oauth/access_token
+            user-info-uri: https://graph.facebook.com/me?fields=id,name,email
+            user-name-attribute: id
