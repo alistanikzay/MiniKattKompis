@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Logga in – KattKompis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-y2q4X5gyqxXJ7b2bKzI1UpzPj2cEgyP4cFJ+R6KmjqI4/m3P+YJmVxHnDh6s2Yzsy5FJ9W4/4b5h6+j6u8eDkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-container h2 {
+            color: #ff6f61;
+            margin-bottom: 32px;
+            font-size: 1.8rem;
+        }
+
+        .login-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 12px 0;
+            padding: 12px;
+            color: white;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+            font-size: 1rem;
+        }
+
+        .login-button.google {
+            background-color: #db4437;
+        }
+        .login-button.google:hover {
+            background-color: #c13525;
+            transform: translateY(-2px);
+        }
+
+        .login-button.facebook {
+            background-color: #4267B2;
+        }
+        .login-button.facebook:hover {
+            background-color: #334d91;
+            transform: translateY(-2px);
+        }
+
+        .login-container p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .login-container p a {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Logga in till KattKompis 🐾</h2>
+
+    <a href="/oauth2/authorization/google" class="login-button google">
+        <i class="fab fa-google"></i> Logga in med Google
+    </a>
+    <a href="/oauth2/authorization/facebook" class="login-button facebook">
+        <i class="fab fa-facebook-f"></i> Logga in med Facebook
+    </a>
+
+    <p>Eller <a href="/register">registrera dig som ny användare</a></p>
+</div>
+
+</body>
+</html>

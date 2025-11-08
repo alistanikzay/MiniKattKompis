@@ -3,6 +3,7 @@ package org.example.minikattkompis.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -24,22 +25,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Rollbaserad autorisation
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/cats/**", "/weather/**", "/api/cats/**", "/css/**").permitAll()
+                        .requestMatchers(
+                                "/", "/index.html", "/login.html", "/register.html",
+                                "/add-cat.html", "/edit-cat.html", "/cats.html",
+                                "/cat-detail.html", "/cat-recommendations.html",
+                                "/cat-reminders.html", "/weather.html",
+                                "/css/**", "/js/**", "/images/**"
+                        ).permitAll()
                         .requestMatchers("/premium/**").hasRole("PREMIUM")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                // OAuth2-login med Google och Facebook
                 .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login.html")
+                        .defaultSuccessUrl("/index.html", true)
                         .userInfoEndpoint(userInfo -> userInfo
-                                .oidcUserService(this.oidcUserService())   // Google (OIDC)
-                                .userService(this.facebookUserService())   // Facebook (OAuth2)
+                                .oidcUserService(this.oidcUserService())
+                                .userService(this.facebookUserService())
                         )
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/index.html")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"));
@@ -47,9 +54,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * OidcUserService för Google-login med dynamisk rollmappning
-     */
     private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
         final OidcUserService delegate = new OidcUserService();
 
@@ -59,12 +63,11 @@ public class SecurityConfig {
             SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
             authorityMapper.setConvertToUpperCase(true);
 
-            var mappedAuthorities = new HashSet<>(authorityMapper.mapAuthorities(oidcUser.getAuthorities()));
+            // Mappa till Set<GrantedAuthority>
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>(authorityMapper.mapAuthorities(oidcUser.getAuthorities()));
 
-            // Alla får ROLE_USER
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-            // Exempel: premium baserat på e-postdomän
             if (oidcUser.getEmail() != null && oidcUser.getEmail().endsWith("@premium.com")) {
                 mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_PREMIUM"));
             }
@@ -73,9 +76,6 @@ public class SecurityConfig {
         };
     }
 
-    /**
-     * OAuth2UserService för Facebook-login med dynamisk rollmappning
-     */
     private OAuth2UserService<OAuth2UserRequest, OAuth2User> facebookUserService() {
         return userRequest -> {
             OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate =
@@ -83,10 +83,9 @@ public class SecurityConfig {
 
             OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-            Set<SimpleGrantedAuthority> mappedAuthorities = new HashSet<>();
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-            // Exempel: premium baserat på e-postdomän
             String email = (String) oAuth2User.getAttributes().get("email");
             if (email != null && email.endsWith("@premium.com")) {
                 mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_PREMIUM"));
