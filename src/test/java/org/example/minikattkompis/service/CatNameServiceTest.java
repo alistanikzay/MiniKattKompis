@@ -16,8 +16,8 @@ class CatNameServiceTest {
 
     @Test
     void safeCatName_ShouldReturnSameName_WhenNameIsValid() {
-        String result = catNameService.safeCatName("Misse");
-        assertThat(result).isEqualTo("Misse");
+        String result = catNameService.safeCatName("Whiskers");
+        assertThat(result).isEqualTo("Whiskers");
     }
 
     @Test
