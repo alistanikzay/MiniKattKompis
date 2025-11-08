@@ -1,18 +1,23 @@
 spring:
+  application:
+    name: MiniKattKompis
+  profiles:
+    active: dev
+
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: <DIN_GOOGLE_CLIENT_ID>
-            client-secret: <DIN_GOOGLE_CLIENT_SECRET>
+            client-id: ${GOOGLE_CLIENT_ID}       # Lägg in din riktiga Google Client ID
+            client-secret: ${GOOGLE_CLIENT_SECRET} # Lägg in din riktiga Google Client Secret
             scope: profile,email
-            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google" # Fullständig URL för lokal testning
           facebook:
-            client-id: <DIN_FACEBOOK_CLIENT_ID>
-            client-secret: <DIN_FACEBOOK_CLIENT_SECRET>
+            client-id: ${FACEBOOK_CLIENT_ID}       # Lägg in din riktiga Facebook App ID
+            client-secret: ${FACEBOOK_CLIENT_SECRET} # Lägg in din riktiga Facebook App Secret
             scope: public_profile,email
-            redirect-uri: "{baseUrl}/login/oauth2/code/facebook"
+            redirect-uri: "http://localhost:8080/login/oauth2/code/facebook"
             client-name: Facebook
         provider:
           google:
@@ -25,3 +30,23 @@ spring:
             token-uri: https://graph.facebook.com/oauth/access_token
             user-info-uri: https://graph.facebook.com/me?fields=id,name,email
             user-name-attribute: id
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+
+server:
+  servlet:
+    session:
+      persistent: false
