@@ -1,94 +1,26 @@
 <!DOCTYPE html>
-<html lang="sv" xmlns:th="http://www.thymeleaf.org">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <title>🐾 Rekommendationer - KattKompis</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #ffe6e6, #fff3e6);
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            text-align: center;
-            padding: 25px;
-            background: #ff6f61;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        body { font-family: 'Montserrat', sans-serif; background: linear-gradient(135deg, #ffe6e6, #fff3e6); margin: 0; padding: 0; color: #333; }
+        header { text-align: center; padding: 25px; background: #ff6f61; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
         header h1 { margin: 0; font-size: 2rem; }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 12px;
-            background: white;
-            position: sticky;
-            top: 70px;
-            z-index: 999;
-            border-bottom: 1px solid #eee;
-        }
-        nav a {
-            text-decoration: none;
-            color: #ff6f61;
-            font-weight: 700;
-            padding: 10px 18px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            border: 2px solid #ff6f61;
-            background-color: white;
-        }
-        nav a:hover {
-            background-color: #ff6f61;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 650px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-            animation: fadeIn 0.6s ease;
-            text-align: center;
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
+        nav { display: flex; justify-content: center; gap: 15px; padding: 12px; background: white; position: sticky; top: 70px; z-index: 999; border-bottom: 1px solid #eee; }
+        nav a { text-decoration: none; color: #ff6f61; font-weight: 700; padding: 10px 18px; border-radius: 10px; transition: all 0.3s ease; border: 2px solid #ff6f61; background-color: white; }
+        nav a:hover { background-color: #ff6f61; color: white; transform: translateY(-2px); }
+        .container { max-width: 650px; margin: 40px auto; background: white; border-radius: 18px; padding: 25px; box-shadow: 0 6px 16px rgba(0,0,0,0.15); animation: fadeIn 0.6s ease; text-align: center; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
         h2 { color: #ff6f61; margin-bottom: 20px; }
         ul { list-style: none; padding: 0; margin: 0; }
         li { padding: 10px; margin-bottom: 10px; border-radius: 12px; background: #fff3e6; font-weight: 600; color: #333; }
-        .back-link {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 18px;
-            background: #ff6f61;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .back-link:hover {
-            background: #ff5040;
-            transform: scale(1.05);
-        }
+        .back-link { display: inline-block; margin-top: 25px; padding: 10px 18px; background: #ff6f61; color: white; border-radius: 10px; text-decoration: none; font-weight: 700; transition: background 0.3s, transform 0.2s; }
+        .back-link:hover { background: #ff5040; transform: scale(1.05); }
     </style>
 </head>
 <body>
-
 <header>
     <h1>🐾 Rekommendationer för katt</h1>
 </header>
@@ -100,13 +32,49 @@
 </nav>
 
 <div class="container">
-    <h2 th:text="${cat.name} + ' 🐾'">Kattnamn 🐾</h2>
-    <ul>
-        <li th:each="rec : ${recommendations}" th:text="rec">Rekommendation</li>
-    </ul>
-
+    <h2 id="catName">Kattnamn 🐾</h2>
+    <ul id="recommendationsList"></ul>
     <a href="cats.html" class="back-link">← Tillbaka till alla katter</a>
 </div>
 
+<script>
+    const initialCats = [
+        {name: "Whiskers", personality: "Lekfull, busig 😻"},
+        {name: "Mittens", personality: "Lugn, snäll 😸"},
+        {name: "Luna", personality: "Nyfiken, lekfull 😽"}
+    ];
+    const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
+    const allCats = [...initialCats, ...savedCats];
+
+    const catRecommendations = {
+        "Whiskers": ["Köp nya leksaker 🧶","Ge extra klätterträning 🪜","Lek 20 min varje dag","Börja med kattmynta ibland 🌿","Ge extra godbitar som belöning 🍪"],
+        "Mittens": ["Ge mysstunder på soffan 🛋️","Skapa lugna viloplatser 💤","Långsam promenad med sele 🐾","Mjuka filtar att sova på 🛏️","Lugn musik på kvällarna 🎵"],
+        "Luna": ["Utforska nya miljöer 🏡","Interaktiva pussel för hjärnan 🧩","Låt katten observera utomhus 🌳","Lek med laserpekare 🔦","Skapa gömställen och tunnlar 📦"]
+    };
+
+    // Hämta index från URL
+    const params = new URLSearchParams(window.location.search);
+    const index = Number(params.get("index"));
+
+    // Visa rätt katt
+    const catNameEl = document.getElementById("catName");
+    const recListEl = document.getElementById("recommendationsList");
+
+    if (Number.isInteger(index) && allCats[index]) {
+        const cat = allCats[index];
+        catNameEl.textContent = `${cat.name} 🐾`;
+        const recommendations = catRecommendations[cat.name] || [
+            "Ge kärlek ❤️","Observera beteende","Erbjud variation i mat","Ge lekstunder varje dag 🧶","Skapa trygga sovplatser 🛏️"
+        ];
+        recommendations.forEach(rec => {
+            const li = document.createElement("li");
+            li.textContent = rec;
+            recListEl.appendChild(li);
+        });
+    } else {
+        catNameEl.textContent = "Katt saknas 🐾";
+        recListEl.innerHTML = "<li>Inga rekommendationer</li>";
+    }
+</script>
 </body>
 </html>
