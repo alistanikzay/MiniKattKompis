@@ -12,19 +12,19 @@ class CatMapperTest {
 
     @Test
     void shouldMapEntityToDto() {
-        Cat cat = new Cat("Misse", 3, "Boll");
+        Cat cat = new Cat("Whiskers", 3, "Boll");
         CatDTO dto = mapper.toDTO(cat);
 
-        assertThat(dto.getName()).isEqualTo("Misse");
+        assertThat(dto.getName()).isEqualTo("Whiskers");
         assertThat(dto.getFavoriteToy()).isEqualTo("Boll");
     }
 
     @Test
     void shouldMapDtoToEntity() {
-        CatDTO dto = new CatDTO(1L, "Lisa", 2, "Mus");
+        CatDTO dto = new CatDTO(1L, "Luna", 2, "Fjärderleksak");
         Cat entity = mapper.toEntity(dto);
 
-        assertThat(entity.getName()).isEqualTo("Lisa");
-        assertThat(entity.getFavoriteToy()).isEqualTo("Mus");
+        assertThat(entity.getName()).isEqualTo("Luna");
+        assertThat(entity.getFavoriteToy()).isEqualTo("Fjärderleksak");
     }
 }

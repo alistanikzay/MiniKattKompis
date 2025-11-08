@@ -26,7 +26,7 @@ class CatGraphQLControllerTest {
     void cats_ShouldReturnAllCats() {
         // Arrange
         List<Cat> mockCats = Arrays.asList(
-                new Cat("Misse", 3, "Boll"),
+                new Cat("Whiskers", 3, "Boll"),
                 new Cat("Luna", 2, "Fjäderleksak")
         );
         when(catService.getAllCats()).thenReturn(mockCats);
@@ -39,7 +39,7 @@ class CatGraphQLControllerTest {
                 .isNotNull()
                 .hasSize(2)
                 .extracting(Cat::getName)
-                .containsExactly("Misse", "Luna");
+                .containsExactly("Whiskers", "Luna");
 
         verify(catService, times(1)).getAllCats();
     }

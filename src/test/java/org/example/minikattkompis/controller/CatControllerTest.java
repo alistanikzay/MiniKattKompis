@@ -57,7 +57,7 @@ class CatControllerTest {
     @Test
     void saveCat_ShouldCallServiceAndRedirect() throws Exception {
         mockMvc.perform(post("/cats/add")
-                        .param("name", "Misse")
+                        .param("name", "Whiskers")
                         .param("age", "2"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/cats"));
@@ -67,7 +67,7 @@ class CatControllerTest {
 
     @Test
     void catDetail_ShouldAddCatToModelAndReturnView() throws Exception {
-        Cat cat = new Cat("Misse", 2, null);
+        Cat cat = new Cat("Whiskers", 2, null);
         when(catService.getCat(1L)).thenReturn(cat);
 
         mockMvc.perform(get("/cats/1"))
