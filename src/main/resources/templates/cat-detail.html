@@ -120,12 +120,8 @@
         }
 
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-            .cat-container img {
-                height: 250px;
-            }
+            header h1 { font-size: 1.6rem; }
+            .cat-container img { height: 250px; }
         }
     </style>
 </head>
@@ -153,9 +149,9 @@
 
 <script>
     const initialCats = [
-        {name: "Whiskers", personality: "Lekfull, busig 😻", imageUrl: "https://placekitten.com/300/200"},
-        {name: "Mittens", personality: "Lugn, snäll 😸", imageUrl: "https://placekitten.com/301/200"},
-        {name: "Luna", personality: "Nyfiken, lekfull 😽", imageUrl: "https://placekitten.com/302/200"}
+        {name: "Whiskers", personality: "Lekfull och busig 😻", imageUrl: "images/whiskers.jpg", age: 3, favoriteToy: "Boll"},
+        {name: "Mittens", personality: "Lugn, snäll 😸", imageUrl: "images/mittens.jpg", age: 5, favoriteToy: "Solsäng"},
+        {name: "Luna", personality: "Nyfiken, lekfull 😽", imageUrl: "images/luna.jpg", age: 2, favoriteToy: "Fjäderleksak"}
     ];
 
     const savedCats = JSON.parse(localStorage.getItem("cats")) || [];
@@ -167,17 +163,25 @@
     const nameEl = document.getElementById("catName");
     const personalityEl = document.getElementById("catPersonality");
     const imageEl = document.getElementById("catImage");
+    const ageEl = document.getElementById("catAge");
+    const toyEl = document.getElementById("catToy");
 
     if (Number.isInteger(index) && allCats[index]) {
         const cat = allCats[index];
         nameEl.textContent = `${cat.name} 🐾`;
+        ageEl.textContent = `Ålder: ${cat.age || "Okänd"}`;
         personalityEl.textContent = `Personlighet: ${cat.personality || "Okänd"}`;
+        toyEl.textContent = `Favoritleksak: ${cat.favoriteToy || "Okänd"}`;
         imageEl.src = cat.imageUrl || "https://placekitten.com/400/300";
         imageEl.alt = cat.name || "Katt";
     } else {
         nameEl.textContent = "Katt saknas 🐾";
+        ageEl.textContent = "Ålder: Okänd";
         personalityEl.textContent = "Personlighet: Okänd";
+        toyEl.textContent = "Favoritleksak: Okänd";
         imageEl.src = "https://placekitten.com/400/300";
         imageEl.alt = "Katt saknas";
     }
 </script>
+</body>
+</html>

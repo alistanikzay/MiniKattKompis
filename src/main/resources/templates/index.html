@@ -39,6 +39,7 @@
             top: 80px;
             z-index: 999;
             border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -58,7 +59,6 @@
             transform: translateY(-3px);
         }
 
-        /* Ny modern välkomstsektion */
         .welcome {
             text-align: center;
             padding: 60px 30px;
@@ -88,7 +88,6 @@
             font-weight: 600;
         }
 
-        /* Justerad slideshow */
         .slideshow-container {
             position: relative;
             max-width: 950px;
@@ -175,7 +174,6 @@
             background-color: #ff6f61;
         }
 
-        /* --- Featured cats (cards under slideshow) --- */
         .featured-cats { max-width: 950px; margin: 30px auto 0; padding: 0 20px; }
         .featured-cats h2 { text-align: center; color: #ff6f61; margin-bottom: 16px; }
         .featured-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
@@ -183,6 +181,24 @@
         .cat-card img { width:100%; height:180px; object-fit:cover; display:block; }
         .cat-card .card-body { padding:12px; }
         .details-btn { display:inline-block; margin-top:8px; padding:8px 12px; background:#ff6f61; color:white; border-radius:8px; text-decoration:none; font-weight:700; }
+
+        /* --- Responsiv design --- */
+        @media (max-width: 768px) {
+            .slideshow-container .mySlides img {
+                height: 300px;
+            }
+            header h1 { font-size: 2rem; }
+            .welcome h2 { font-size: 1.6rem; }
+            .welcome p { font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .slideshow-container .mySlides img {
+                height: 220px;
+            }
+            nav { flex-direction: column; gap: 10px; }
+            .featured-grid { grid-template-columns: 1fr; gap: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -194,8 +210,8 @@
 <nav>
     <a href="cats.html">😺 Alla katter</a>
     <a href="add-cat.html">➕ Lägg till katt</a>
-    <a href="cat-recommendations.html">💡 Rekommendationer</a>
-    <a href="cat-reminders.html">⏰ Påminnelser</a>
+    <a href="cat-recommendations.html?index=0">💡 Rekommendationer</a>
+    <a href="cat-reminders.html?index=0">⏰ Påminnelser</a>
     <a href="weather.html">☀️ Väder</a>
 </nav>
 
@@ -240,34 +256,7 @@
 
 <section class="featured-cats">
     <h2>Möt några av våra katter</h2>
-    <div class="featured-grid">
-        <article class="cat-card">
-            <img src="images/whiskers.jpg" alt="Whiskers">
-            <div class="card-body">
-                <h3 style="margin:6px 0;color:#ff6f61;">Whiskers, 3 år</h3>
-                <p style="margin:6px 0;color:#666;">Lekfull och busig — älskar bollar och höga hyllor.</p>
-                <a href="cat-detail.html?index=0" class="details-btn">Visa detaljer</a>
-            </div>
-        </article>
-
-        <article class="cat-card">
-            <img src="images/mittens.jpg" alt="Mittens">
-            <div class="card-body">
-                <h3 style="margin:6px 0;color:#ff6f61;">Mittens, 5 år</h3>
-                <p style="margin:6px 0;color:#666;">Lugn och kärvänlig — föredrar mysstunder i solen.</p>
-                <a href="cat-detail.html?index=1" class="details-btn">Visa detaljer</a>
-            </div>
-        </article>
-
-        <article class="cat-card">
-            <img src="images/luna.jpg" alt="Luna">
-            <div class="card-body">
-                <h3 style="margin:6px 0;color:#ff6f61;">Luna, 2 år</h3>
-                <p style="margin:6px 0;color:#666;">Nyfiken och äventyrlig — älskar nya leksaker och fönsterutsikt.</p>
-                <a href="cat-detail.html?index=2" class="details-btn">Visa detaljer</a>
-            </div>
-        </article>
-    </div>
+    <div class="featured-grid" id="featuredGrid"></div>
 </section>
 
 <div class="dots">
@@ -276,6 +265,47 @@
     <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 
-<script src="js/script.js"></script>
+<script>
+    // --- Slideshow ---
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) { showSlides(slideIndex += n); }
+    function currentSlide(n) { showSlides(slideIndex = n); }
+
+    function showSlides(n) {
+        const slides = document.getElementsByClassName("mySlides");
+        const dots = document.getElementsByClassName("dot");
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
+        for (let i=0;i<slides.length;i++) slides[i].style.display="none";
+        for (let i=0;i<dots.length;i++) dots[i].className=dots[i].className.replace(" active","");
+        slides[slideIndex-1].style.display="block";
+        dots[slideIndex-1].className += " active";
+    }
+
+    // --- Dynamiska featured cats ---
+    const cats = [
+        {name: "Whiskers", age: 3, personality: "Lekfull och busig — älskar bollar och höga hyllor.", image: "images/whiskers.jpg"},
+        {name: "Mittens", age: 5, personality: "Lugn och kärvänlig — föredrar mysstunder i solen.", image: "images/mittens.jpg"},
+        {name: "Luna", age: 2, personality: "Nyfiken och äventyrlig — älskar nya leksaker och fönsterutsikt.", image: "images/luna.jpg"}
+    ];
+
+    const featuredGrid = document.getElementById("featuredGrid");
+    cats.forEach((cat, index) => {
+        const card = document.createElement("article");
+        card.className = "cat-card";
+        card.innerHTML = `
+            <img src="${cat.image}" alt="${cat.name}, ${cat.age} år">
+            <div class="card-body">
+                <h3 style="margin:6px 0;color:#ff6f61;">${cat.name}, ${cat.age} år</h3>
+                <p style="margin:6px 0;color:#666;">${cat.personality}</p>
+                <a href="cat-detail.html?index=${index}" class="details-btn">Visa detaljer</a>
+            </div>
+        `;
+        featuredGrid.appendChild(card);
+    });
+</script>
+
 </body>
 </html>
