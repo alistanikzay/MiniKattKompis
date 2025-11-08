@@ -18,27 +18,11 @@ public class CatRestController {
     }
 
     // --------------------
-    // Version 1: Hämta alla katter
-    // --------------------
-    @GetMapping(value = "/all", headers = "Version=1")
-    public @NonNull List<Cat> getAllCatsV1() {
-        return catService.getAllCats();
-    }
-
-    // --------------------
     // Version 2: Hämta alla katter
     // --------------------
     @GetMapping(value = "/all", headers = "Version=2")
     public @NonNull List<Cat> getAllCatsV2() {
         return catService.getAllCats();
-    }
-
-    // --------------------
-    // Version 1: Lägg till katt
-    // --------------------
-    @PostMapping(value = "/add", headers = "Version=1")
-    public @NonNull Cat addCatV1(@RequestBody @NonNull Cat cat) {
-        return catService.addCat(cat);
     }
 
     // --------------------
