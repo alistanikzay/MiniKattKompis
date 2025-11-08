@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   backend:
     build: .
@@ -13,6 +15,7 @@ services:
     depends_on:
       - db
       - redis
+    restart: unless-stopped
 
   db:
     image: mysql:8.0
@@ -26,12 +29,14 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    restart: unless-stopped
 
   redis:
     image: redis:7.0
     container_name: minikattkompis-redis
     ports:
       - "6379:6379"
+    restart: unless-stopped
 
 volumes:
   db_data:
