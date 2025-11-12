@@ -23,7 +23,7 @@ public class Cat {
     private @Nullable LocalDate nextVetVisit;
 
     // JPA kräver en no-args konstruktor
-    protected Cat() {}
+    public Cat() {}
 
     // Full konstruktor
     public Cat(Long id, @NonNull String name, int age, @Nullable String favoriteToy) {
