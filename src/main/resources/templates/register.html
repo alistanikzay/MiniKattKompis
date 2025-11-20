@@ -48,17 +48,12 @@
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: 0.2s;
         }
 
         .register-container form button:hover {
             background-color: #ff4a3d;
             transform: translateY(-2px);
-        }
-
-        .register-container p {
-            margin-top: 16px;
-            font-size: 0.9rem;
         }
 
         .register-container p a {
@@ -73,14 +68,15 @@
 <div class="register-container">
     <h2>Registrera ny användare 🐾</h2>
 
-    <form action="/register" method="post">
+    <form action="index.html" method="post">
         <input type="text" name="username" placeholder="Användarnamn" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Lösenord" required>
         <button type="submit">Registrera</button>
     </form>
 
-    <p>Redan medlem? <a href="/login">Logga in här</a></p>
+    <p>Redan medlem? <a href="login.html">Logga in här</a></p>
+    <p><a href="index.html">⬅️ Tillbaka till startsidan</a></p>
 </div>
 
 </body>
