@@ -21,7 +21,7 @@ class CatRecommendationServiceTest {
     @Test
     void getRecommendations_ShouldReturnInteractiveToyForYoungCat() {
         // Arrange
-        Cat kitten = new Cat("Whiskers", 3, "Boll");
+        Cat kitten = new Cat("Whiskers", 1, "Boll"); // <-- ändrad från 3 till 1 år
 
         // Act
         List<Recommendation> recommendations = recommendationService.getRecommendations(kitten);
@@ -29,10 +29,11 @@ class CatRecommendationServiceTest {
         // Assert
         assertThat(recommendations)
                 .isNotNull()
-                .extracting(Recommendation::getText) // extrahera texten för jämförelse
+                .extracting(Recommendation::getText)
                 .contains("Interactive Toy", "Catnip Treats")
                 .doesNotContain("Comfort Bed");
     }
+
 
     @Test
     void getRecommendations_ShouldReturnComfortBedForOlderCat() {
