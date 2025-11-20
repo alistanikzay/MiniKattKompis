@@ -18,7 +18,7 @@ class RecommendationGraphQLControllerTest {
         CatRecommendationService service = Mockito.mock(CatRecommendationService.class);
         RecommendationGraphQLController controller = new RecommendationGraphQLController(service);
 
-        Recommendation rec = new Recommendation("Luna", "Testrekommendation");
+        Recommendation rec = new Recommendation(1L, "Testrekommendation", "basic");
         when(service.getAllRecommendations()).thenReturn(List.of(rec));
 
         // Act
@@ -28,8 +28,8 @@ class RecommendationGraphQLControllerTest {
         assertThat(result)
                 .isNotNull()
                 .hasSize(1)
-                .extracting(Recommendation::getCatName)
-                .containsExactly("Luna");
+                .extracting(Recommendation::getText)
+                .containsExactly("Testrekommendation");
     }
 
     @Test
@@ -38,7 +38,7 @@ class RecommendationGraphQLControllerTest {
         CatRecommendationService service = Mockito.mock(CatRecommendationService.class);
         RecommendationGraphQLController controller = new RecommendationGraphQLController(service);
 
-        Recommendation rec = new Recommendation("Mittens", "Premium tips");
+        Recommendation rec = new Recommendation(2L, "Premium tips", "premium");
         when(service.getPremiumRecommendations()).thenReturn(List.of(rec));
 
         // Act
@@ -48,7 +48,7 @@ class RecommendationGraphQLControllerTest {
         assertThat(result)
                 .isNotNull()
                 .hasSize(1)
-                .extracting(Recommendation::getCatName)
-                .containsExactly("Mittens");
+                .extracting(Recommendation::getCategory)
+                .containsExactly("premium");
     }
 }
