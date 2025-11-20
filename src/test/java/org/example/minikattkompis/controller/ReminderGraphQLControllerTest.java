@@ -1,7 +1,7 @@
-package org.example.minikattkompis.service;
+package org.example.minikattkompis.controller;
 
-import org.example.minikattkompis.controller.ReminderGraphQLController;
 import org.example.minikattkompis.model.Reminder;
+import org.example.minikattkompis.service.CatService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
