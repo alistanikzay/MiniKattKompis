@@ -10,17 +10,32 @@ import java.util.List;
 @Service
 public class CatRecommendationService {
 
-    // Befintlig metod för HTML-vyn (kan behållas men ändras till Recommendation)
+    /**
+     * Returnerar rekommendationer för en specifik katt.
+     * - Alla katter får Catnip Treats
+     * - Unga katter (<2 år) får Interactive Toy
+     * - Äldre katter (>=2 år) får Comfort Bed
+     */
     public List<Recommendation> getRecommendations(Cat cat) {
         List<Recommendation> recs = new ArrayList<>();
         long id = 1;
-        if(cat.getAge() < 2) recs.add(new Recommendation(id++, "Interactive Toy", "Toy"));
-        if(cat.getAge() >= 2) recs.add(new Recommendation(id++, "Comfort Bed", "Accessory"));
+
+        // Alla katter får Catnip Treats
         recs.add(new Recommendation(id++, "Catnip Treats", "Food"));
+
+        // Unga katter < 2 år
+        if (cat.getAge() < 2) {
+            recs.add(new Recommendation(id++, "Interactive Toy", "Toy"));
+        } else {
+            recs.add(new Recommendation(id++, "Comfort Bed", "Accessory"));
+        }
+
         return recs;
     }
 
-    // REST / GraphQL: alla rekommendationer
+    /**
+     * Returnerar alla standardrekommendationer
+     */
     public List<Recommendation> getAllRecommendations() {
         List<Recommendation> recs = new ArrayList<>();
         recs.add(new Recommendation(1L, "Interactive Toy", "Toy"));
@@ -29,7 +44,9 @@ public class CatRecommendationService {
         return recs;
     }
 
-    // REST / GraphQL: premiumrekommendationer
+    /**
+     * Returnerar premiumrekommendationer
+     */
     public List<Recommendation> getPremiumRecommendations() {
         List<Recommendation> recs = new ArrayList<>();
         recs.add(new Recommendation(4L, "Luxury Cat Tower", "Premium Toy"));
