@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Logga in – KattKompis</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-y2q4X5gyqxXJ7b2bKzI1UpzPj2cEgyP4cFJ+R6KmjqI4/m3P+YJmVxHnDh6s2Yzsy5FJ9W4/4b5h6+j6u8eDkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -43,8 +43,8 @@
             font-weight: 700;
             border-radius: 12px;
             text-decoration: none;
-            transition: transform 0.2s, background 0.2s;
             font-size: 1rem;
+            transition: 0.2s;
         }
 
         .login-button.google {
@@ -63,11 +63,6 @@
             transform: translateY(-2px);
         }
 
-        .login-container p {
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-
         .login-container p a {
             color: #ff6f61;
             text-decoration: none;
@@ -80,14 +75,16 @@
 <div class="login-container">
     <h2>Logga in till KattKompis 🐾</h2>
 
-    <a href="/oauth2/authorization/google" class="login-button google">
+    <a href="index.html" class="login-button google">
         <i class="fab fa-google"></i> Logga in med Google
     </a>
-    <a href="/oauth2/authorization/facebook" class="login-button facebook">
+
+    <a href="index.html" class="login-button facebook">
         <i class="fab fa-facebook-f"></i> Logga in med Facebook
     </a>
 
-    <p>Eller <a href="/register">registrera dig som ny användare</a></p>
+    <p>Eller <a href="register.html">registrera dig som ny användare</a></p>
+    <p><a href="index.html">⬅️ Tillbaka till startsidan</a></p>
 </div>
 
 </body>

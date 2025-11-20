@@ -182,20 +182,15 @@
         .cat-card .card-body { padding:12px; }
         .details-btn { display:inline-block; margin-top:8px; padding:8px 12px; background:#ff6f61; color:white; border-radius:8px; text-decoration:none; font-weight:700; }
 
-        /* --- Responsiv design --- */
         @media (max-width: 768px) {
-            .slideshow-container .mySlides img {
-                height: 300px;
-            }
+            .slideshow-container .mySlides img { height: 300px; }
             header h1 { font-size: 2rem; }
             .welcome h2 { font-size: 1.6rem; }
             .welcome p { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .slideshow-container .mySlides img {
-                height: 220px;
-            }
+            .slideshow-container .mySlides img { height: 220px; }
             nav { flex-direction: column; gap: 10px; }
             .featured-grid { grid-template-columns: 1fr; gap: 15px; }
         }
@@ -213,6 +208,10 @@
     <a href="cat-recommendations.html?index=0">💡 Rekommendationer</a>
     <a href="cat-reminders.html?index=0">⏰ Påminnelser</a>
     <a href="weather.html">☀️ Väder</a>
+
+    <!-- 🔑 Tillagda länkar -->
+    <a href="login.html">🔐 Logga in</a>
+    <a href="register.html">📝 Registrera</a>
 </nav>
 
 <section class="welcome">
@@ -266,13 +265,10 @@
 </div>
 
 <script>
-    // --- Slideshow ---
     let slideIndex = 1;
     showSlides(slideIndex);
-
     function plusSlides(n) { showSlides(slideIndex += n); }
     function currentSlide(n) { showSlides(slideIndex = n); }
-
     function showSlides(n) {
         const slides = document.getElementsByClassName("mySlides");
         const dots = document.getElementsByClassName("dot");
@@ -284,7 +280,6 @@
         dots[slideIndex-1].className += " active";
     }
 
-    // --- Dynamiska featured cats ---
     const cats = [
         {name: "Whiskers", age: 3, personality: "Lekfull och busig — älskar bollar och höga hyllor.", image: "images/whiskers.jpg"},
         {name: "Mittens", age: 5, personality: "Lugn och kärvänlig — föredrar mysstunder i solen.", image: "images/mittens.jpg"},
